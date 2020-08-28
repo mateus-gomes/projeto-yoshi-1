@@ -18,6 +18,18 @@ public class Dados extends javax.swing.JFrame {
     Integer percent1 = 0;
     Integer percent2 = 0;
     Integer percent3 = 0;
+    Integer minCpu = 0;
+    Integer maxCpu = 0;
+    Integer totalCpu = 0;
+    Integer totalDisc = 0;
+    Integer totalMem = 0;
+    Integer minDisc = 0;
+    Integer maxDisc = 0;
+    Integer avgDisc = 0;
+    Integer minMem = 0;
+    Integer maxMem = 0;
+    Integer avgMem = 0;
+    Integer cont = 1;
     Random random = new Random();
         
     public Dados() {
@@ -38,12 +50,12 @@ public class Dados extends javax.swing.JFrame {
         lblMinCpu = new javax.swing.JLabel();
         lblMaxCpu = new javax.swing.JLabel();
         lblAvgCpu = new javax.swing.JLabel();
-        jProgressBar4 = new javax.swing.JProgressBar();
+        progressCpu = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
         lblPercent1 = new javax.swing.JLabel();
         txtValClock = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jProgressBar2 = new javax.swing.JProgressBar();
+        progressDisc = new javax.swing.JProgressBar();
         lblAvgDisc = new javax.swing.JLabel();
         lblMaxDisc = new javax.swing.JLabel();
         lblMinDisc = new javax.swing.JLabel();
@@ -51,31 +63,41 @@ public class Dados extends javax.swing.JFrame {
         lblPercent2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jProgressBar3 = new javax.swing.JProgressBar();
+        progressMem = new javax.swing.JProgressBar();
         lblMaxMem = new javax.swing.JLabel();
         lblAvgMem = new javax.swing.JLabel();
         lblPercent3 = new javax.swing.JLabel();
         lblMinMem = new javax.swing.JLabel();
         txtMemory = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(220, 220, 220));
 
+        btnRead.setBackground(new java.awt.Color(40, 44, 46));
+        btnRead.setForeground(new java.awt.Color(255, 255, 255));
         btnRead.setText("Fazer leitura dos dados");
+        btnRead.setBorder(null);
+        btnRead.setBorderPainted(false);
+        btnRead.setMargin(new java.awt.Insets(8, 14, 8, 14));
+        btnRead.setPreferredSize(new java.awt.Dimension(150, 30));
         btnRead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReadActionPerformed(evt);
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(39, 139, 231), 2));
         jPanel1.setForeground(new java.awt.Color(39, 139, 231));
 
-        lblMinCpu.setText("Mínimo:");
+        lblMinCpu.setText("Mínimo: 0");
 
-        lblMaxCpu.setText("Máximo:");
+        lblMaxCpu.setText("Máximo: 0");
 
-        lblAvgCpu.setText("Média: ");
+        lblAvgCpu.setText("Média: 0");
+
+        progressCpu.setForeground(new java.awt.Color(30, 106, 230));
 
         jLabel1.setBackground(new java.awt.Color(14, 15, 16));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -100,7 +122,7 @@ public class Dados extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jProgressBar4, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(progressCpu, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblMinCpu)
@@ -125,23 +147,25 @@ public class Dados extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblMaxCpu)
-                            .addComponent(jProgressBar4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(progressCpu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAvgCpu)))
                 .addContainerGap(11, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 150, 8), 2));
 
-        lblAvgDisc.setText("Média: ");
+        progressDisc.setForeground(new java.awt.Color(11, 192, 38));
 
-        lblMaxDisc.setText("Máximo:");
+        lblAvgDisc.setText("Média: 0");
 
-        lblMinDisc.setText("Mínimo:");
+        lblMaxDisc.setText("Máximo: 0");
+
+        lblMinDisc.setText("Mínimo: 0");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("Disco");
+        jLabel2.setText("Disco (C:)");
 
         lblPercent2.setText("0%");
 
@@ -158,7 +182,7 @@ public class Dados extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(lblPercent2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(progressDisc, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAvgDisc)
@@ -181,25 +205,27 @@ public class Dados extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblMaxDisc)
-                            .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(progressDisc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAvgDisc)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(86, 48, 141), 2));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Memória");
 
-        lblMaxMem.setText("Máximo:");
+        progressMem.setForeground(new java.awt.Color(98, 34, 115));
 
-        lblAvgMem.setText("Média: ");
+        lblMaxMem.setText("Máximo: 0");
+
+        lblAvgMem.setText("Média: 0");
 
         lblPercent3.setText("0%");
 
-        lblMinMem.setText("Mínimo:");
+        lblMinMem.setText("Mínimo: 0");
 
         txtMemory.setText("0,0/15,9GB");
 
@@ -211,13 +237,15 @@ public class Dados extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblPercent3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMemory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(progressMem, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblPercent3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtMemory)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,49 +261,58 @@ public class Dados extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblMinMem)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jProgressBar3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(progressMem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblMaxMem))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAvgMem))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel3)
-                        .addGap(2, 2, 2)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPercent3)
                             .addComponent(txtMemory))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setText("Desempenho");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(36, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRead)
-                .addGap(258, 258, 258))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(294, 294, 294)
+                        .addComponent(btnRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(290, 290, 290)
+                        .addComponent(jLabel4)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(btnRead)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
         );
 
@@ -293,6 +330,62 @@ public class Dados extends javax.swing.JFrame {
         lblPercent2.setText(percent2 + "%");
         lblPercent3.setText(percent3 + "%");
         txtMemory.setText(memory + "/15.9GB");
+        
+        if(cont == 1){
+            minCpu = percent1;
+        }else if(percent1 < minCpu){
+            minCpu = percent1;
+        }
+        
+        if(cont == 1){
+            maxCpu = percent1;
+        }else if(percent1 > maxCpu){
+            maxCpu = percent1;
+        }
+        
+        if(cont == 1){
+            minDisc = percent2;
+        }else if(percent2 < minDisc){
+            minDisc = percent2;
+        }
+        
+        if(cont == 1){
+            maxDisc = percent2;
+        }else if(percent2 > maxDisc){
+            maxDisc = percent2;
+        }
+        
+        if(cont == 1){
+            minMem = percent3;
+        }else if(percent3 < minMem){
+            minMem = percent3;
+        }
+        
+        if(cont == 1){
+            maxMem = percent3;
+        }else if(percent3 > maxMem){
+            maxMem = percent3;
+        }
+        
+        progressCpu.setValue(percent1);
+        progressDisc.setValue(percent2);
+        progressMem.setValue(percent3);
+        totalCpu += percent1;
+        totalDisc += percent2;
+        totalMem += percent3;
+        Integer avgCpu = totalCpu/cont;
+        Integer avgDisc = totalDisc/cont;
+        Integer avgMem = totalMem/cont;
+        lblMinCpu.setText("Mínimo: " + minCpu + "%");
+        lblMaxCpu.setText("Máximo: " + maxCpu + "%");
+        lblAvgCpu.setText("Média: " + avgCpu + "%");
+        lblMinDisc.setText("Mínimo: " + minDisc + "%");
+        lblMaxDisc.setText("Máximo: " + maxDisc + "%");
+        lblAvgDisc.setText("Média: " + avgDisc + "%");
+        lblMinMem.setText("Mínimo: " + minMem + "%");
+        lblMaxMem.setText("Máximo: " + maxMem + "%");
+        lblAvgMem.setText("Média: " + avgMem + "%");
+        cont++;
     }//GEN-LAST:event_btnReadActionPerformed
 
     /**
@@ -311,12 +404,10 @@ public class Dados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JProgressBar jProgressBar2;
-    private javax.swing.JProgressBar jProgressBar3;
-    private javax.swing.JProgressBar jProgressBar4;
     private javax.swing.JLabel lblAvgCpu;
     private javax.swing.JLabel lblAvgDisc;
     private javax.swing.JLabel lblAvgMem;
@@ -329,6 +420,9 @@ public class Dados extends javax.swing.JFrame {
     private javax.swing.JLabel lblPercent1;
     private javax.swing.JLabel lblPercent2;
     private javax.swing.JLabel lblPercent3;
+    private javax.swing.JProgressBar progressCpu;
+    private javax.swing.JProgressBar progressDisc;
+    private javax.swing.JProgressBar progressMem;
     private javax.swing.JLabel txtMemory;
     private javax.swing.JLabel txtValClock;
     // End of variables declaration//GEN-END:variables

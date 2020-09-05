@@ -321,12 +321,11 @@ public class Dados extends javax.swing.JFrame {
         percent2 = random.nextInt(101);
         percent3 = random.nextInt(101);
         memory =  (15.9*percent3)/100;
-        memory = Math.round(memory*100.0)/100.0;
         
         lblPercent1.setText(percent1 + "%");
         lblPercent2.setText(percent2 + "%");
         lblPercent3.setText(percent3 + "%");
-        txtMemory.setText(memory + "/15.9GB");
+        txtMemory.setText(String.format("%.2f/15.9GB",memory));
         
         if(cont == 1){
             minCpu = percent1;

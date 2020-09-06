@@ -12,24 +12,24 @@ import java.util.Random;
  * @author Mateus
  */
 public class Dados extends javax.swing.JFrame {
-
-    Double clock = 0.00;
-    Double memory = 0.00;
     Integer percent1 = 0;
     Integer percent2 = 0;
     Integer percent3 = 0;
+    
     Integer minCpu = 0;
     Integer maxCpu = 0;
     Integer totalCpu = 0;
-    Integer totalDisc = 0;
-    Integer totalMem = 0;
+    
     Integer minDisc = 0;
     Integer maxDisc = 0;
-    Integer avgDisc = 0;
+    Integer totalDisc = 0;
+    
     Integer minMem = 0;
     Integer maxMem = 0;
-    Integer avgMem = 0;
+    Integer totalMem = 0;
+    
     Integer cont = 1;
+    Double memory = 0.00;
     Random random = new Random();
         
     public Dados() {
@@ -366,18 +366,23 @@ public class Dados extends javax.swing.JFrame {
         progressCpu.setValue(percent1);
         progressDisc.setValue(percent2);
         progressMem.setValue(percent3);
+        
         totalCpu += percent1;
         totalDisc += percent2;
         totalMem += percent3;
+        
         Integer avgCpu = totalCpu/cont;
         Integer avgDisc = totalDisc/cont;
         Integer avgMem = totalMem/cont;
+        
         lblMinCpu.setText("Mínimo: " + minCpu + "%");
         lblMaxCpu.setText("Máximo: " + maxCpu + "%");
         lblAvgCpu.setText("Média: " + avgCpu + "%");
+        
         lblMinDisc.setText("Mínimo: " + minDisc + "%");
         lblMaxDisc.setText("Máximo: " + maxDisc + "%");
         lblAvgDisc.setText("Média: " + avgDisc + "%");
+        
         lblMinMem.setText("Mínimo: " + minMem + "%");
         lblMaxMem.setText("Máximo: " + maxMem + "%");
         lblAvgMem.setText("Média: " + avgMem + "%");
